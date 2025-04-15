@@ -1,0 +1,204 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  #navbar-container {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+    margin: 40px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .portfolio-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .stocks-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
+  }
+  
+  /* Stock Card Styling */
+  .stock-card {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+  }
+  
+  .stock-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .stock-card .symbol {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+  
+  .stock-card .price {
+    font-size: 1.6rem;
+    color: #4caf50;
+    margin-bottom: 15px;
+  }
+  
+  .stock-card .quantity {
+    font-size: 1.1rem;
+    color: #888;
+  }
+  
+  .stock-card .btn-buy {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .stock-card .btn-buy:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Stock Details (hidden initially) */
+  .stock-card .stock-details {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+  
+  .stock-card:hover .stock-details {
+    display: block;
+  }
+  
+  .progress-container {
+    margin-top: 10px;
+  }
+  
+  progress {
+    width: 100%;
+    height: 15px;
+    border-radius: 10px;
+    appearance: none;
+    background-color: #f1f1f1;
+  }
+  
+  progress::-webkit-progress-bar {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  progress::-webkit-progress-value {
+    background-color: #3498db;
+    border-radius: 10px;
+  }
+  
+  /* Media Queries for Responsiveness */
+  
+  /* For screens larger than 480px */
+  @media (min-width: 480px) {
+    .stocks-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* For screens larger than 768px */
+  @media (min-width: 768px) {
+    .stocks-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  
+    h1 {
+      font-size: 2.5rem;
+    }
+    
+    .stock-card {
+      padding: 25px;
+    }
+  }
+  
+  /* Navbar - Make it responsive as well */
+  #navbar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+  
+  .navbar__link {
+    text-decoration: none;
+    color: #333;
+    margin: 0 10px;
+    font-weight: 600;
+  }
+  
+  .navbar__link i {
+    margin-right: 5px;
+  }
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: row !important;
+      justify-content: space-around;
+      align-items: center;
+    }
+  }
+  /* Make Navbar mobile friendly */
+  @media (max-width: 480px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .navbar__link {
+      margin: 5px 0;
+    }
+  }
+  

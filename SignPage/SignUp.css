@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Raleway, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.screen {
+  background: rgba(50, 70, 100, 0.95);
+  backdrop-filter: blur(10px);
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  padding: 40px 30px;
+  overflow: hidden;
+}
+
+.screen__content {
+  z-index: 1;
+  position: relative;
+  height: 100%;
+}
+
+.screen__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  clip-path: inset(0 0 0 0);
+  overflow: hidden;
+}
+
+/* Optional Background Shapes - can remove if going fully clean */
+.screen__background__shape {
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+.screen__background__shape1 {
+  height: 520px;
+  width: 520px;
+  background: #1e2a47;
+  top: -50px;
+  right: 120px;
+  border-radius: 0 72px 0 0;
+}
+
+.screen__background__shape2 {
+  height: 220px;
+  width: 220px;
+  background: #233c5c;
+  top: -172px;
+  right: 0;
+  border-radius: 32px;
+}
+
+.screen__background__shape3 {
+  height: 540px;
+  width: 190px;
+  background: linear-gradient(270deg, #2a3b56, #354c72);
+  top: -24px;
+  right: 0;
+  border-radius: 32px;
+}
+
+.screen__background__shape4 {
+  height: 400px;
+  width: 200px;
+  background: #2f4c74;
+  top: 420px;
+  right: 50px;
+  border-radius: 60px;
+}
+
+/* Signup Box */
+.signup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 40px;
+}
+
+.signup__field {
+  position: relative;
+}
+
+.signup__icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #b0c0d4;
+}
+
+.signup__input {
+  width: 100%;
+  padding: 12px 12px 12px 36px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #465a75;
+  color: #fff;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.signup__input:focus,
+.signup__input:hover {
+  outline: none;
+  border-bottom-color: #6c7b94;
+}
+
+.signup__submit {
+  background: #F4A261;
+  font-size: 14px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #465a75;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0px 2px 2px #000;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.signup__submit:hover {
+  transform: scale(1.05);
+  border-color: #6c7b94;
+}
+
+.social-signup__icon {
+  padding: 20px 10px;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0px 0px 8px #465a75;
+  transition: transform 0.2s ease-in-out;
+}
+
+.social-signup__icon:hover {
+  transform: scale(1.2);
+}
+
+a {
+  color: white;
+  margin-top: 25px;
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@keyframes scaleHover {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 400px) {
+  
+
+  .signup {
+		width: 100%;
+		padding: 20px;
+		padding-top: 140px;
+	}
+
+	.signup__input {
+		width: 100%;
+	}
+
+	.signup__submit {
+		width: 100%;
+	}
+
+	.social-login {
+		position: static;
+		margin-top: 20px;
+		width: 100%;
+	}
+}
+/* izrqzano e na telefon da se fixne kakto i dr */

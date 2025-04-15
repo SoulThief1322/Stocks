@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+body {
+  background: #eaeef6;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem 0;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.03);
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+.navbar__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.5rem;
+  width: 5.5rem;
+  color: #6a778e;
+  transition: 250ms ease all;
+  font-size: 1.2rem;
+  margin: 0 10px; /* Add spacing between navbar items */
+}
+
+.navbar__link i {
+  font-size: 1.5rem;
+  color: #6a778e;
+  transition: 250ms ease all;
+}
+
+.navbar__link span {
+  position: absolute;
+  top: 100%;
+  transform: translateY(-3rem);
+  margin-top: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  color: #406ff3;
+  background: #fff;
+  padding: 0.75rem;
+  transition: 250ms ease all;
+  border-radius: 17.5px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar__link:hover {
+  color: #fff;
+}
+
+.navbar__link:hover i {
+  color: #406ff3;
+}
+
+.navbar:not(:hover) .navbar__link:focus,
+.navbar__link:hover span {
+  opacity: 1;
+  transform: translateY(0); /* Move down on hover */
+}
+
+.navbar__menu {
+  position: relative;
+}
+
+@keyframes gooeyEffect {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(0.5, 1.5);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.navbar__item:hover ~ .navbar__item:last-child:before,
+.navbar__item:last-child:hover:before {
+  opacity: 1;
+  animation: gooeyEffect 250ms 1;
+}
+
+.navbar {
+  height: auto;
+}
+.notVisible{
+  display: none;
+}
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 0.8rem;
+    flex-wrap: nowrap; 
+    justify-content: center
+  }
+
+  .navbar__link {
+    width: 4.8rem;
+    height: 3.2rem;
+    font-size: 1.1rem;
+  }
+
+  .navbar__link span {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+    margin-top: 0.7rem;
+  }
+
+  .navbar__link i {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.8rem;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navbar__link {
+    width: 4.5rem;
+    height: 3rem;
+    font-size: 1rem;
+    margin: 5px;
+  }
+
+  .navbar__link span {
+    position: absolute;
+    top: 100%; /* Position below the icon */
+    transform: translateY(-3rem); /* Move up initially */
+    margin-top: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    color: #406ff3;
+    background: #fff;
+    padding: 1rem;  /* Increased padding for better coverage */
+    transition: 250ms ease all;
+    border-radius: 17.5px;
+    font-size: 1rem;  /* Increased font-size */
+    white-space: nowrap;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: auto;  /* Ensure the span adapts to the width of the text */
+    max-width: 120px;
+  }
+  
+  .navbar__link:hover span {
+    opacity: 1;
+    transform: translateY(0); /* Move down on hover */
+  }
+
+  .navbar__link i {
+    font-size: 1.3rem;
+  }
+
+  
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.6rem;
+    flex-wrap: nowrap; /* Ensure no wrapping */
+    justify-content: center; /* Center the navbar items */
+    align-items: center;
+  }
+
+  .navbar__link {
+    width: 4rem;
+    height: 2.8rem;
+    font-size: 0.9rem;
+    margin: 4px;
+  }
+
+  .navbar__link span {
+    font-size: 0.7rem;
+    padding: 0.4rem;
+    margin-top: 0.4rem;
+  }
+
+  .navbar__link i {
+    font-size: 1.2rem;
+  }
+
+  .navbar__link:hover span {
+    transform: translateY(0);
+  }
+}

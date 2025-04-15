@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>This is the stocks page. Here you can find information about various stocks!</title>
+    <link rel="stylesheet" href="ProfilePage.css">
+    <link rel="stylesheet" href="../HomePage/navbar.css">
+</head>
+
+<body>
+    <div id="navbar-container"><script>
+        fetch('../HomePage/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            });
+    </script></div>
+   
+</body>
+
+</html>
