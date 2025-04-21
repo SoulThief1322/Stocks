@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Portfolio - Stocks Page</title>
+    <title>Pricing Cards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
       rel="stylesheet"
@@ -12,12 +13,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../HomePage/navbar.css" />
-    <link rel="stylesheet" href="stocks.css" />
-    <link rel="stylesheet" href="Owned.css" />
   </head>
-
-  <body>
+  <body class="bg-slate-800 text-white font-sans">
     <!-- Navbar -->
     <div id="navbar-container">
       <nav class="navbar">
@@ -38,59 +40,16 @@
         </button>
       </nav>
     </div>
+    <!-- Main Content -->
+    <h1 class="text-4xl text-center font-semibold pt-32 mb-0 text-white">
+      Owned Stocks
+    </h1>
 
-    <!-- Page Content -->
-    <div class="portfolio-container">
-      <h1>Your Stock Portfolio</h1>
-      <div id="stocks-list" class="stocks-list">
-        <!-- Stock Card 1 -->
-        <div class="stock-card">
-          <div class="symbol">AAPL</div>
-          <div class="price">$145.67</div>
-          <div class="quantity">Quantity: 10</div>
-          <button class="btn-buy">Buy More</button>
-          <div class="stock-details">
-            <p>Current Price: $145.67</p>
-            <p>Last Update: 1 day ago</p>
-            <div class="progress-container">
-              <label for="progress-bar">Progress:</label>
-              <progress id="progress-bar" value="50" max="100"></progress>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Stock Card 2 -->
-        <div class="stock-card">
-          <div class="symbol">GOOGL</div>
-          <div class="price">$2763.91</div>
-          <div class="quantity">Quantity: 5</div>
-          <button class="btn-buy">Buy More</button>
-          <div class="stock-details">
-            <p>Current Price: $2763.91</p>
-            <p>Last Update: 2 hours ago</p>
-            <div class="progress-container">
-              <label for="progress-bar">Progress:</label>
-              <progress id="progress-bar" value="30" max="100"></progress>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Stock Card 3 -->
-        <div class="stock-card">
-          <div class="symbol">AMZN</div>
-          <div class="price">$3440.26</div>
-          <div class="quantity">Quantity: 2</div>
-          <button class="btn-buy">Buy More</button>
-          <div class="stock-details">
-            <p>Current Price: $3440.26</p>
-            <p>Last Update: 1 day ago</p>
-            <div class="progress-container">
-              <label for="progress-bar">Progress:</label>
-              <progress id="progress-bar" value="70" max="100"></progress>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div
+      id="main-container"
+      class="pt-4 flex items-center justify-center min-h-screen"
+    >
+      <div id="card-container" class="flex flex-col md:flex-row gap-6"></div>
     </div>
     <script src="Owned.js"></script>
   </body>

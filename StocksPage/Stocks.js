@@ -88,6 +88,10 @@ function displayStocks(stock, isUpdate = false) {
       div.innerHTML = `
     <li class="stock">${stock[0].name} - $${stock[0].price}</li>
     <li class="stock">Change: ${stock[0].change}%</li>
+    <div>
+        <input id="quantity-selector-input" type="text" value="1">
+    </div>
+    
 `;
     div.appendChild(button);
       
@@ -124,33 +128,37 @@ function buyStocks(){
         alert("Please log in to buy stocks.");
         return;
     }
-    const stockSymbol = this.parentElement.id;        
+    const stockSymbol = this.parentElement.id;  
+    console.log(stockSymbol);
+          
     const price = stocks.find(stock => stock.symbol === this.parentElement.id).price;
-    console.log(price);
-    
+    const quantity = parseInt(this.parentElement.children[2].children[0].value);
     fetch(`https://stockapp-553c7-default-rtdb.europe-west1.firebasedatabase.app/${user.uid}/BoughtStocks.json`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          stockSymbol: stockSymbol,
-          price: price,
-        }),
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Stock bought successfully:", data);
-      })
-      .catch((error) => {
-        console.error("Error buying stock:", error);
-      });
-    
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        stockSymbol: stockSymbol,
+        price: price,
+        quantity: quantity,
+        totalPrice: price * quantity,
+      }),
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Stock bought successfully:", data);
+    })
+    .catch((error) => {
+      console.error("Error buying stock:", error);
+    });
+    alert("Stock bought successfully!");
+    window.location.href = "../Owned/Owned.html";
     
 }
 
