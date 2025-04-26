@@ -13,7 +13,6 @@ window.addEventListener("DOMContentLoaded", () => {
         return response.json();
       })
       .then((data) => {
-        // Iterate over the bought stocks and create containers for each
         for (const key in data) {
           const container = document.createElement("div");
           container.classList.add(
@@ -23,22 +22,17 @@ window.addEventListener("DOMContentLoaded", () => {
             "flex-col"
           );
 
-          // Initialize the current price display as "Fetching..."
           container.innerHTML = `
             <div class="p-8 mx-3 mt-3 rounded-t-xl bg-slate-800 text-white">
                 <div class="text-center uppercase">${data[key].stockSymbol}</div>
-                
-                <h2 class="mt-10 font-serif text-5xl text-center">Bought at: ${
-                  data[key].price
-                }$</h2>
+                <h2 class="mt-10 font-serif text-5xl text-center">Bought at: ${data[key].price}$</h2>
                 <h2 class="text-lg mt-2 text-center" id="price-${key}">Current price: Fetching...</h2>
                 <h3 class="mt-2 text-center">Quantity: ${data[key].quantity}</h3>
                 <div class="flex justify-center">
                   <a id="${key}"
                     href=""
                     class="inline-block px-10 py-3 my-6 text-center border border-violet-600 rounded-lg duration-200 hover:bg-violet-800 hover:border-violet-800"
-                    >Sell</a
-                  >
+                    >Sell</a>
                 </div>
                 <h3 class="mt-2 text-center" id="profit-${key}">Profit: Fetching...</h3>
               </div>
@@ -47,17 +41,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
           mainContainer.appendChild(container);
 
-          // Function to update the current price and profit for a specific stock
           function updatePriceAndProfit() {
             fetchStocks(data[key].stockSymbol).then((currentPrice) => {
               const priceElement = document.getElementById(`price-${key}`);
               const profitElement = document.getElementById(`profit-${key}`);
               if (currentPrice !== null) {
-                console.log(`Current price for ${data[key].stockSymbol}: $${currentPrice}`);
                 priceElement.textContent = `Current price: $${currentPrice}`;
-                // Calculate profit: (current price - bought price) * quantity
-                const profit = (currentPrice - data[key].price) * data[key].quantity;
-                console.log(`Profit for ${data[key].stockSymbol}: $${profit.toFixed(2)}`);
+                const profit =
+                  (currentPrice - data[key].price) * data[key].quantity;
                 profitElement.textContent = `Profit: $${profit.toFixed(2)}`;
               } else {
                 priceElement.textContent = "Failed to fetch price.";
@@ -66,16 +57,45 @@ window.addEventListener("DOMContentLoaded", () => {
             });
           }
 
-          // Initial fetch of stock price and profit
           updatePriceAndProfit();
-
-          // Set an interval to update the stock price and profit every 30 seconds
-          setInterval(updatePriceAndProfit, 30000); // 30000ms = 30 seconds
+          setInterval(updatePriceAndProfit, 30000);
 
           document.getElementById(key).addEventListener("click", (event) => {
             event.preventDefault();
             const stockSymbol = event.target.id;
-            console.log(stockSymbol);
+            fetch(
+              `https://stockapp-553c7-default-rtdb.europe-west1.firebasedatabase.app/${user.uid}/AccountBalance.json`
+            )
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Failed to fetch account balance");
+                }
+                return response.json();
+              })
+              .then((currentBalance) => {
+                const amountToAdd = data[key].price * data[key].quantity;
+                const newBalance = (currentBalance || 0) + amountToAdd;
+
+                return fetch(
+                  `https://stockapp-553c7-default-rtdb.europe-west1.firebasedatabase.app/${user.uid}/AccountBalance.json`,
+                  {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newBalance),
+                  }
+                );
+              })
+              .then((updateResponse) => {
+                if (!updateResponse.ok) {
+                  throw new Error("Failed to update account balance");
+                }
+                console.log("Account balance updated successfully");
+              })
+              .catch((error) => {
+                console.error("Error updating account balance:", error);
+              });
             fetch(
               `https://stockapp-553c7-default-rtdb.europe-west1.firebasedatabase.app/${user.uid}/BoughtStocks/${stockSymbol}.json`,
               {
@@ -93,7 +113,7 @@ window.addEventListener("DOMContentLoaded", () => {
               })
               .then((data) => {
                 alert("Stock sold successfully!");
-                window.location.reload(); // Reload the page to see the updated stocks
+                window.location.reload();
               })
               .catch((error) => {
                 console.error("Error selling stock:", error);
@@ -121,11 +141,10 @@ async function fetchStocks(symbol) {
       throw new Error("Invalid symbol or error fetching data");
     }
     const data = await response.json();
-    console.log(`Fetched stock price for ${symbol}: $${data.c}`);
-    return data.c; // Return the current price
+    return data.c;
   } catch (error) {
     console.error(`Error fetching stock price for ${symbol}:`, error);
-    return null; // Return null if an error occurs
+    return null;
   }
 }
 

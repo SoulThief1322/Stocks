@@ -32,9 +32,6 @@
         <a href="../Owned/Owned.html" class="navbar__link">
           <i class="fas fa-chart-pie"></i><span>Owned</span>
         </a>
-        <a href="../ProfilePage/ProfilePage.html" class="navbar__link">
-          <i class="fas fa-user"></i><span>Profile</span>
-        </a>
         <button class="navbar__link" id="logout">
           <i class="fas fa-sign-in-alt"></i>
         </button>
@@ -47,9 +44,12 @@
 
     <div
       id="main-container"
-      class="pt-4 flex items-center justify-center min-h-screen"
+      class="pt-4 flex items-start justify-center min-h-screen"
     >
-      <div id="card-container" class="flex flex-col md:flex-row gap-6"></div>
+    <div
+    id="card-container"
+    class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 md:mt-10"
+  >
     </div>
     <script src="Owned.js"></script>
   </body>
