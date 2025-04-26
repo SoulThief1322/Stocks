@@ -1,12 +1,29 @@
+const accountBalance = document.querySelector(".balance p");
+const user = JSON.parse(localStorage.getItem("user"));
 document.addEventListener("DOMContentLoaded", () => {
     displayStocks([]);
+    fetch(
+        `https://stockapp-553c7-default-rtdb.europe-west1.firebasedatabase.app/${user.uid}/AccountBalance.json`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch account balance");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          accountBalance.textContent = `Account balance: $${Math.round(data *100)/100}`;
+        })
+        .catch((error) => {
+          console.error("Error fetching account balance:", error);
+        });
   });
         
 
 const searchButton = document.getElementById("search-button");
 let updateInterval;
 let stocks = [];
-
+console.log(accountBalance);
 
 fetchStocks("AAPL");
 fetchStocks("GOOGL");
@@ -88,6 +105,10 @@ function displayStocks(stock, isUpdate = false) {
       div.innerHTML = `
     <li class="stock">${stock[0].name} - $${stock[0].price}</li>
     <li class="stock">Change: ${stock[0].change}%</li>
+    <div>
+        <input id="quantity-selector-input" type="text" value="1">
+    </div>
+    
 `;
     div.appendChild(button);
       
@@ -119,39 +140,50 @@ searchButton.addEventListener("click", (event) => {
 });
 
 function buyStocks(){
-    const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
         alert("Please log in to buy stocks.");
         return;
     }
-    const stockSymbol = this.parentElement.id;        
+    const stockSymbol = this.parentElement.id;  
+    console.log(stockSymbol);
+          
     const price = stocks.find(stock => stock.symbol === this.parentElement.id).price;
-    console.log(price);
-    
-    fetch(`https://stockapp-553c7-default-rtdb.europe-west1.firebasedatabase.app/${user.uid}/BoughtStocks.json`, {
+    const quantity = parseInt(this.parentElement.children[2].children[0].value);
+
+    fetch(`https://stockapp-553c7-default-rtdb.europe-west1.firebasedatabase.app/${user.uid}/AccountBalance.json`)
+  .then((response) => response.json())
+  .then((currentBalance) => {
+    const amountToSubtract = price * quantity;
+    const newBalance = (currentBalance || 0) - amountToSubtract;
+
+    if (newBalance < 0) {
+      alert("Insufficient funds to buy this stock.");
+      return; // Exit early if insufficient funds
+    }
+    return fetch(`https://stockapp-553c7-default-rtdb.europe-west1.firebasedatabase.app/${user.uid}/AccountBalance.json`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newBalance),
+    });
+  })
+  .then((updateResponse) => {
+    if (updateResponse?.ok) {
+      
+      return fetch(`https://stockapp-553c7-default-rtdb.europe-west1.firebasedatabase.app/${user.uid}/BoughtStocks.json`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          stockSymbol: stockSymbol,
-          price: price,
-        }),
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Stock bought successfully:", data);
-      })
-      .catch((error) => {
-        console.error("Error buying stock:", error);
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ stockSymbol, price, quantity, totalPrice: price * quantity }),
       });
-    
-    
+    }
+  })
+  .then((buyResponse) => {
+    if (buyResponse?.ok) {
+      console.log("Stock bought successfully");
+      alert("Stock bought successfully!");
+      window.location.href = "../Owned/Owned.html";
+    }
+  })
+  .catch((error) => console.error("Error:", error));
 }
 
 function logout() {

@@ -302,3 +302,15 @@ button span:after {
   border-radius: 0.5rem;
   width: 50px;
 }
+#quantity-selector-input{
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 30px;
+  font-size: 18px;
+  background-color: #03002e;
+  color: #fff;
+  border-radius: 6px;
+  padding-left: 12px;
+}
+
