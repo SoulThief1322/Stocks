@@ -19,7 +19,7 @@ body {
 }
 
 .hero {
-    background: #1e2a47;
+    background: linear-gradient(45deg, #00001c, #1e2a47, #293462, #4f4f68);
     background-size: 400% 400%;
     animation: moveBackground 15s ease infinite;
     height: auto; /* Allow the hero section to grow if necessary */
@@ -148,7 +148,7 @@ footer {
 }
 
 .footer-links ul li a:hover {
-    color: #00FF00;
+    color: #f5b400;
 }
 
 .footer-social a {
